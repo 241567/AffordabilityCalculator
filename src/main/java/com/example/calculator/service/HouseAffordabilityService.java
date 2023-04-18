@@ -35,7 +35,14 @@ public class HouseAffordabilityService {
         DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.HALF_UP);
         loanAmount = Double.parseDouble(df.format(loanAmount));
-
+        
+        double result =  houseAffordability.getDownPayment() + loanAmount;
+        houseAffordability.setAffordableHousePrice(result);
+        if (result >= houseAffordability.getDownPayment()) {
+            houseAffordability.setAffordable(true); // Set isAffordable to true
+        } else {
+            houseAffordability.setAffordable(false); // Set isAffordable to false
+        }
         return houseAffordability.getDownPayment() + loanAmount;
     
     }
